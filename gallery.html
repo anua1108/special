@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Gallery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" href="val.jpg">
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 80px;
+  background:
+    radial-gradient(circle at top, #fff0f5, #ffd6e8 40%, #ffb6c1 70%, #ff8fa3);
+  overflow-x: hidden;
+}
+
+/* Floating hearts background */
+body::before {
+  content: "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤";
+  position: fixed;
+  inset: 0;
+  font-size: 120px;
+  color: rgba(255, 77, 109, 0.08);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  animation: floatHearts 20s linear infinite;
+}
+
+@keyframes floatHearts {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-300px); }
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(38px, 7vw, 64px);
+  color: #b3003b;
+  margin-bottom: 40px;
+  text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+}
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 24px;
+  object-fit: cover;
+  padding: 8px;
+  background: linear-gradient(135deg, #ff5f8a, #ffb3c6);
+  box-shadow: 0 18px 40px rgba(255, 77, 109, 0.45);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.08) rotate(-1deg);
+  box-shadow: 0 30px 65px rgba(255, 77, 109, 0.7);
+}
+
+/* Navigation */
+.nav-buttons {
+  margin-top: 50px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-buttons a {
+  font-family: 'Poppins', sans-serif;
+  padding: 12px 36px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #b3003b;
+  background: white;
+  border-radius: 30px;
+  border: 2px solid #ff5f8a;
+  transition: all 0.4s ease;
+}
+
+.nav-buttons a:hover {
+  background: #ff4d6d;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 15px 35px rgba(255,77,109,0.6);
+}
+
+/* Music button */
+.music-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4d6d, #ff9bb5);
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 20px 45px rgba(255,77,109,0.7);
+  z-index: 999;
+  transition: transform 0.3s ease;
+}
+
+.music-btn:hover {
+  transform: scale(1.25);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Our Gallery</h1>
+
+<div class="gallery">
+  <img src="anu2.jpeg">
+  <img src="anu.jpeg">
+  <img src="us.jpg">
+  <img src="anuaksa.jpeg">
+  <img src="achus.jpeg">
+  <img src="anu3.jpeg">
+  <img src="gods_gift.jpeg">
+  <img src="aksaanil.jpeg">
+  <img src="we.png">
+</div>
+
+<div class="nav-buttons">
+  <a href="story.html">← Back to Story</a>
+  <a href="index.html">Home</a>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="Puthu_Mazha_-_Shakthisree_Gopalan.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<script>
+const music = document.getElementById("bgMusic");
+const musicBtn = document.querySelector(".music-btn");
+
+let savedTime = sessionStorage.getItem("musicTime");
+if (!savedTime) savedTime = 15;
+
+music.currentTime = savedTime;
+music.volume = 0.5;
+
+window.addEventListener("click", () => {
+  music.play().catch(() => {});
+});
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play();
+    musicBtn.innerText = "⏸️";
+  } else {
+    music.pause();
+    musicBtn.innerText = "🎵";
+  }
+}
+
+setInterval(() => {
+  sessionStorage.setItem("musicTime", music.currentTime);
+}, 1000);
+</script>
+
+</body>
+</html>

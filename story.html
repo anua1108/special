@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+<link rel="icon" href="val.jpg">
+
+<style>
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Dancing Script', cursive;
+  margin:0;
+  background:radial-gradient(circle at top,#fff6f0,#f6d6d6 60%,#e9baba);
+}
+
+.wrapper{
+  text-align:center;
+  padding:40px 50px;
+  border-radius:28px;
+  background:rgba(255,255,255,0.35);
+  backdrop-filter:blur(14px);
+  box-shadow:0 30px 70px rgba(0,0,0,0.25);
+  z-index:2;
+}
+
+#storyText{
+  font-size:clamp(20px,3vw,28px);
+  color:#7a2e2e;
+}
+
+.image-box img{
+  width:clamp(200px,50vw,300px);
+  border-radius:20px;
+  margin-top:20px;
+  box-shadow:0 20px 50px rgba(255,100,150,0.4);
+  animation:floatImg 5s ease-in-out infinite;
+}
+
+@keyframes floatImg{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-15px);}
+}
+
+.floating{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;
+}
+
+.heart{
+  position:absolute;
+  bottom:-60px;
+  animation:fly linear forwards;
+  filter:drop-shadow(0 0 10px rgba(255,80,120,0.9));
+}
+
+@keyframes fly{
+  0%{transform:translateY(0) scale(0.6);opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translateY(-120vh) scale(1.3);opacity:0;}
+}
+
+.story-link{
+  display:inline-block;
+  margin-bottom:20px;
+  font-size:20px;
+  color:#7a2e2e;
+  text-decoration:none;
+  padding:10px 25px;
+  border:2px solid #7a2e2e;
+  border-radius:25px;
+  transition:0.4s;
+}
+
+.story-link:hover{
+  background:#ff4d6d;
+  color:white;
+  transform:scale(1.1);
+}
+
+.music-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  background:rgba(255,77,109,0.85);
+  backdrop-filter:blur(10px);
+  border-radius:50%;
+  border:2px solid #ff4d6d;
+  color:white;
+  font-size:26px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(255,77,109,0.6);
+  z-index:999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <a href="index.html" class="story-link">← Back to Home</a>
+  <div id="storyText"></div>
+  <div class="image-box">
+    <img src="us.jpg" alt="Our Memory">
+  </div>
+</div>
+
+<div class="floating" id="floatingStars"></div>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop >
+  <source src="Puthu_Mazha_-_Shakthisree_Gopalan.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<script>
+// STORY TYPING
+const storyLines = [
+ "It began with something so small that no one else would have noticed it a single glimpse I saw you just once years ago. Yet somehow, from that moment on, you never left my heart. I didn’t know your name, I didn’t know your world, but I carried the feeling of you quietly, faithfully, for years.One day, guided by a feeling I couldn’t explain, I searched for you on Instagram and sent a request. Then came the waiting. A long, aching month passed before you accepted it. My heart leapt with hope, but that hope soon learned patience. My messages went unanswered, my words floating in silence. Still, I stayed.I never gave up.",
+"On birthdays and New Years, I reached out sometimes receiving only a polite “thank you,” sometimes nothing at all. Each unanswered message hurt, yet my heart refused to let go. When I finally gathered the courage to confess my feelings and you ignored it completely, something broke inside me. My friends told me to stop, to move on, to accept that some loves are never meant to be. I listened… or at least I tried.I sent one last birthday wish.Then I went quiet.",
+"Years passed. Life changed. I moved to Bangalore, to a new city, a new chapter. But even there, in the middle of unfamiliar streets and unfamiliar days, you found your way back into my thoughts. One night, with trembling fingers and a hopeful heart, I sent one final message—without expectations, without demands.And that message changed everything.",
+"The silence broke.",
+"Words began to flow. Days turned into nights of conversations. Somewhere between those conversations, I found a place in your heart and you found a permanent home in mine.This New Year became the most unforgettable moment of my life. When we finally met and stood face-to-face, time seemed to pause. In that moment, I knew—this wasn’t coincidence. This wasn’t chance. I was standing in front of the love of my life. It felt like God Himself had written our story long before we ever understood it.Every second we spent together felt sacred. And even now, though distance separates us, my heart waits with patience and faith.",
+"I believe God never begins a story He doesn’t intend to complete. I trust that Jesus is walking with us, guiding our steps, strengthening our hearts, and preparing a future more beautiful than anything we could imagine. Until the day distance becomes just a memory, I will wait with patience, pray with faith, and love you with the same heart that never gave up on you.",
+"You are not just someone I love.",
+"You are my answered prayer.",
+"My chosen forever.",
+"And the love my heart was always waiting for. 💞✨",
+];
+
+const storyEl=document.getElementById("storyText");
+let line=0,char=0;
+
+function typeStory(){
+  if(line<storyLines.length){
+    if(char<storyLines[line].length){
+      storyEl.innerHTML+=storyLines[line].charAt(char++);
+      setTimeout(typeStory,45);
+    }else{
+      storyEl.innerHTML+="<br><br>";
+      char=0;
+      line++;
+      setTimeout(typeStory,500);
+    }
+  }
+}
+typeStory();
+
+// HEARTS
+const floating=document.getElementById("floatingStars");
+const hearts=["❤️","💖","💕","💗"];
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText=hearts[Math.floor(Math.random()*hearts.length)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*22+16)+"px";
+  h.style.animationDuration=(Math.random()*3+4)+"s";
+  floating.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},350);
+
+// MUSIC AUTOPLAY (SAFE WAY)
+const music=document.getElementById("bgMusic");
+const musicBtn=document.querySelector(".music-btn");
+
+// restore time
+let savedTime=sessionStorage.getItem("musicTime");
+music.currentTime=savedTime?parseFloat(savedTime):15;
+
+// fade in
+let vol=0;
+music.volume=0;
+music.play().catch(()=>{});
+const fade=setInterval(()=>{
+  if(vol<0.5){
+    vol+=0.02;
+    music.volume=vol;
+  }else{
+    music.muted=false;
+    clearInterval(fade);
+  }
+},200);
+
+// toggle
+function toggleMusic(){
+  if(music.paused){
+    music.play();
+    musicBtn.innerText="⏸️";
+  }else{
+    music.pause();
+    musicBtn.innerText="🎵";
+  }
+}
+
+// save time
+setInterval(()=>{
+  sessionStorage.setItem("musicTime",music.currentTime);
+},1000);
+</script>
+
+</body>
+</html>
