@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💖</title>
+
+<style>
+
+/* 🌈 Background */
+body{
+  margin:0;
+  height:100vh;
+  font-family:'Segoe UI', sans-serif;
+  background:linear-gradient(135deg,#f7b0bc,#d98bac);
+  overflow:hidden;
+}
+
+/* 💎 Split Layout */
+.container{
+  display:flex;
+  width:100%;
+  height:100vh;
+}
+
+/* LEFT SIDE */
+.left-side{
+  width:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Glass Image */
+.image-glass{
+  width:80%;
+  height:80%;
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(20px);
+  border-radius:30px;
+  padding:20px;
+  border:1px solid rgba(255,255,255,0.4);
+  box-shadow:0 30px 60px rgba(0,0,0,0.3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.image-glass img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:20px;
+}
+
+/* RIGHT SIDE */
+.right-side{
+  width:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+/* Glass Dialog */
+.dialog{
+  width:380px;
+  padding:30px;
+  text-align:center;
+  background:rgba(255,255,255,0.3);
+  backdrop-filter:blur(16px);
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,0.3);
+  box-shadow:0 25px 45px rgba(0,0,0,0.3);
+  position:relative;
+  z-index:2;
+}
+
+/* Buttons */
+button{
+  padding:10px 24px;
+  margin:10px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+.yes{
+  background:#e53935;
+  color:white;
+}
+
+.yes:hover{
+  transform:scale(1.1);
+}
+
+.no{
+  position:absolute;
+  background:#eee;
+}
+
+/* Back Button */
+.story-link{
+  position:absolute;
+  top:20px;
+  right:20px;
+  text-decoration:none;
+  padding:8px 18px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.3);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.4);
+  color:#333;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+.story-link:hover{
+  transform:scale(1.05);
+}
+
+/* Final Images */
+.love-images{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:15px;
+}
+
+.love-images img{
+  width:110px;
+  height:140px;
+  object-fit:cover;
+  border-radius:14px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* 🎵 Music Button */
+.music-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  border:none;
+  background:rgba(255,255,255,0.3);
+  backdrop-filter:blur(10px);
+  font-size:22px;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* 💖 Heart Rain */
+.heart{
+  position:absolute;
+  top:-20px;
+  animation:fall linear infinite;
+  pointer-events:none;
+}
+
+@keyframes fall{
+  0%{transform:translateY(0);opacity:1;}
+  100%{transform:translateY(110vh);opacity:0;}
+}
+
+/* 📱 Responsive */
+@media(max-width:768px){
+  .container{
+    flex-direction:column;
+  }
+  .left-side,.right-side{
+    width:100%;
+    height:50%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- LEFT IMAGE -->
+  <div class="left-side">
+    <div class="image-glass">
+      <img src="https://res.cloudinary.com/dzjlaqr1s/image/upload/v1770736493/aa3_oopjn9.jpg">
+    </div>
+  </div>
+
+  <!-- RIGHT DIALOG -->
+  <div class="right-side">
+    <a href="index.html" class="story-link">← Back</a>
+
+    <div class="dialog" id="dialog">
+      <h2 id="question">Do you like me? 😊</h2>
+      <button class="yes" onclick="yesClick()">Yes</button>
+      <button class="no" id="noBtn" onclick="noClick()">No</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- 🎵 Audio -->
+<audio id="bgMusic" loop>
+  <source src="Puthu_Mazha_-_Shakthisree_Gopalan.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<script>
+
+/* 💖 Heart Rain */
+const icons=["❤️","💖","🥰","💑"];
+function createHeart(){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(16+Math.random()*24)+"px";
+  heart.style.animationDuration=(3+Math.random()*2)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart,300);
+
+/* 💬 Questions */
+const questions=[
+  "Do you like me? 😊",
+  "Will you be my Valentine? ❤️",
+  "Will you marry me? 💍"
+];
+
+let qIndex=0;
+let moveCount=0;
+
+function yesClick(){
+  const music=document.getElementById("bgMusic");
+  music.play().catch(()=>{});
+  moveCount=0;
+
+  if(qIndex<questions.length-1){
+    qIndex++;
+    document.getElementById("question").innerText=questions[qIndex];
+  }else{
+    document.getElementById("dialog").innerHTML=`
+      <h2>I Love You ❤️</h2>
+      <p>Forever & Always 💍</p>
+      
+    `;
+  }
+}
+
+function noClick(){
+  if(qIndex===0)return;
+
+  moveCount++;
+  const noBtn=document.getElementById("noBtn");
+  const dialog=document.getElementById("dialog");
+
+  if(moveCount>=4){
+    noBtn.style.display="none";
+    document.getElementById("question").innerText=
+      "Only YES can take us forward 😌❤️";
+    return;
+  }
+
+  noBtn.style.left=Math.random()*(dialog.offsetWidth-noBtn.offsetWidth)+"px";
+  noBtn.style.top=Math.random()*(dialog.offsetHeight-noBtn.offsetHeight)+"px";
+}
+
+/* 🎵 MUSIC CONTINUATION */
+const music=document.getElementById("bgMusic");
+const musicBtn=document.querySelector(".music-btn");
+
+
+
+
+let savedTime = sessionStorage.getItem("musicTime");
+if (!savedTime) savedTime = 15;
+
+music.currentTime = savedTime;
+music.volume = 0.5;
+
+window.addEventListener("click", () => {
+  music.play().catch(() => {});
+});
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play();
+    musicBtn.innerText = "⏸️";
+  } else {
+    music.pause();
+    musicBtn.innerText = "🎵";
+  }
+}
+
+setInterval(() => {
+  sessionStorage.setItem("musicTime", music.currentTime);
+}, 1000);
+
+</script>
+
+</body>
+</html>
