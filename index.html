@@ -179,6 +179,15 @@ effect();
 const music = document.getElementById("bgMusic");
 const musicBtn = document.querySelector(".music-btn");
 
+function playMusic() {
+    const music = document.getElementById("bgMusic");
+
+    music.currentTime = 18;   // Start from 18 seconds
+    music.play().catch(error => {
+        console.log("Playback failed:", error);
+    });
+}
+
 let savedTime = sessionStorage.getItem("musicTime");
 if(!savedTime){ savedTime = 18; }
 
